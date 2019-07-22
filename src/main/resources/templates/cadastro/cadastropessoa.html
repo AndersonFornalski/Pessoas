@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns="https://www.w3.org/1999/xhtml"
+	xmlns:th="https://www.thymeleaf.org">
+<head>
+
+<!-- Importa os Icones Google-->
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+	rel="stylesheet">
+
+<link type="text/css" rel="stylesheet"
+	href="materialize/css/materialize.css" media="screen,projection" />
+
+<link type="text/css" rel="stylesheet" href="materialize.min.css"
+	media="screen,projection" />
+
+
+<title>Insert title here</title>
+</head>
+<body>
+	<form action="salvarpessoa" method="post">
+		<label>Nome</label> 
+		<input name="nome"> 
+		<label>sobrenome</label>
+		<input name="sobrenome"> <br /> <br /> <br /> 
+		<input class="btn waves-effect waves-light border 1px" type="submit" value="Salvar">
+	</form>
+
+	<br />
+	<br />
+	<a href="/listarPessoas">Listando Pessoas</a>
+	<br />
+	<br />
+
+
+	<table>
+
+		<tr th:each="dados : ${pList} ">
+			<td th:text="${dados.id}">Id</td>
+			<td th:text="${dados.nome}">Nome</td>
+			<td th:text="${dados.sobrenome}">Sobrenome</td>
+		</tr>
+	</table>
+
+
+
+
+
+	<script type="text/javascript" src="materialize/js/materialize.js"></script>
+	<script type="text/javascript" src="materialize/js/materialize.min.js"></script>
+
+</body>
+</html>
