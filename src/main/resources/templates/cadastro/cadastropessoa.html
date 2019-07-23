@@ -36,8 +36,13 @@
 	<a href="/listarPessoas">Listando Pessoas</a>
 	<br />
 	<br />
+	<form action="pesquisarPessoa" method="post">
+	<input name="nomePesquisa" >
+    <input class="btn waves-effect waves-light" type="submit" value="Buscar" >
+	</form>
 
-
+	<br />
+	<br />
 	<table>
 
 		<tr th:each="dados : ${pList} ">

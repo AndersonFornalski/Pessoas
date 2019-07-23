@@ -6,8 +6,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.fornalskiapp.models.Pessoa;
@@ -80,13 +82,25 @@ public class PessoaController {
 	
 	@GetMapping("/removerPessoa/{idPessoa}")
 	public ModelAndView excluir(@PathVariable("idPessoa") long idPessoa) {
-		
+		 
 		pessoaRepo.deleteById(idPessoa);
 		ModelAndView mv = new ModelAndView("cadastro/cadastropessoa");
 		mv.addObject("pessoa", pessoaRepo.findAll());
 		mv.addObject("pessoaObj",new Pessoa());
 		return mv;
+	} 	
+	
+	/*METÓDO PESQUISAR*/
+	@PostMapping(value = "/pesquisarPessoa")
+	public ModelAndView pesquisar (@RequestParam("nomePesquisa")String nomePesquisa) {
+		ModelAndView mv = new ModelAndView("cadastro/cadastropessoa");
+		mv.addObject("pList",pessoaRepo.findPessoaByName(nomePesquisa));
+		mv.addObject("pessoaObj",new Pessoa());
+		
+		return mv;
+		
 	}
+	
 }
 
 
