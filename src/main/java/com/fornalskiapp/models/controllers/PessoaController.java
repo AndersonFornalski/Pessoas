@@ -55,6 +55,7 @@ public class PessoaController {
 		ModelAndView mv = new ModelAndView("cadastro/cadastropessoa");
 		Iterable<Pessoa> pList = pessoaRepo.findAll();
 		mv.addObject("pList", pList);
+		mv.addObject("pessoaObj",new Pessoa());
 
 		return mv;
 
@@ -72,6 +73,18 @@ public class PessoaController {
 		ModelAndView mv = new ModelAndView("cadastro/cadastropessoa");
 		mv.addObject("pessoaObj",p.get());
 		
+		return mv;
+	}
+	
+    /*MÉTODO EXCLUIR*/	
+	
+	@GetMapping("/removerPessoa/{idPessoa}")
+	public ModelAndView excluir(@PathVariable("idPessoa") long idPessoa) {
+		
+		pessoaRepo.deleteById(idPessoa);
+		ModelAndView mv = new ModelAndView("cadastro/cadastropessoa");
+		mv.addObject("pessoa", pessoaRepo.findAll());
+		mv.addObject("pessoaObj",new Pessoa());
 		return mv;
 	}
 }

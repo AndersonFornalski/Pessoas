@@ -46,6 +46,7 @@
 			<td th:text="${dados.sobrenome}">Sobrenome</td>
 			<td th:text="${dados.idade}">Idade</td>
 			<td><a th:href="@{/editarPessoa/{/idPessoa}(idPessoa = ${dados.id})}" > Editar </a></td>
+			<td><a th:href="@{/removerPessoa/{/idPessoa}(idPessoa = ${dados.id})}" > Excluir </a></td>
 		</tr>
 	</table>
 
