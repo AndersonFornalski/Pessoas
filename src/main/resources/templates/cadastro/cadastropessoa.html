@@ -8,21 +8,27 @@
 	rel="stylesheet">
 
 <link type="text/css" rel="stylesheet"
-	href="materialize/css/materialize.css" media="screen,projection" />
+	href="/materialize/css/materialize.css" media="screen,projection" />
 
-<link type="text/css" rel="stylesheet" href="materialize.min.css"
+<link type="text/css" rel="stylesheet" href="/materialize.min.css"
 	media="screen,projection" />
 
 
 <title>Insert title here</title>
 </head>
 <body>
-	<form action="salvarpessoa" method="post">
+	<form action="salvarpessoa" method="post" th:object = ${pessoaObj}>
+		<label>Id</label> 
+		<input name="id" th:field ="*{id}" readonly="readonly"> 
 		<label>Nome</label> 
-		<input name="nome"> 
-		<label>sobrenome</label>
-		<input name="sobrenome"> <br /> <br /> <br /> 
-		<input class="btn waves-effect waves-light border 1px" type="submit" value="Salvar">
+		<input name="nome"th:field ="*{nome}"> 
+		<label>Sobrenome</label>
+		<input name="sobrenome"th:field ="*{sobrenome}"> 
+		<label>Idade</label>
+		<input name="idade"th:field ="*{idade}"> 
+		
+		<br /> <br /> <br /> 
+		<input class="btn waves-effect waves-light" type="submit" value="Salvar">
 	</form>
 
 	<br />
@@ -38,6 +44,8 @@
 			<td th:text="${dados.id}">Id</td>
 			<td th:text="${dados.nome}">Nome</td>
 			<td th:text="${dados.sobrenome}">Sobrenome</td>
+			<td th:text="${dados.idade}">Idade</td>
+			<td><a th:href="@{/editarPessoa/{/idPessoa}(idPessoa = ${dados.id})}" > Editar </a></td>
 		</tr>
 	</table>
 

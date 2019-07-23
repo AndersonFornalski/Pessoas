@@ -1,7 +1,11 @@
 package com.fornalskiapp.models.controllers;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
@@ -17,13 +21,17 @@ public class PessoaController {
 	private PessoaRepository pessoaRepo;
 
 	@RequestMapping(value = "/cadastropessoa", method = RequestMethod.GET)
-	public String inicio() {
-		return "cadastro/cadastropessoa";
+	public ModelAndView inicio() {
+		
+		ModelAndView mv = new ModelAndView("cadastro/cadastropessoa");
+		mv.addObject("pessoaObj",new Pessoa());
+		
+		return mv;
 	}
 
 	/* METODO SALVAR NO BANCO */
 
-	@RequestMapping(value = "salvarpessoa", method = RequestMethod.POST)
+	@RequestMapping(value = "**/salvarpessoa", method = RequestMethod.POST)
 	public ModelAndView salvar(Pessoa p) {
 		pessoaRepo.save(p);
 
@@ -34,6 +42,7 @@ public class PessoaController {
 		ModelAndView mv = new ModelAndView("cadastro/cadastropessoa");
 		Iterable<Pessoa> pList = pessoaRepo.findAll();
 		mv.addObject("pList", pList);
+		mv.addObject("pessoaObj",new Pessoa());
 
 		return mv;
 
@@ -51,4 +60,27 @@ public class PessoaController {
 
 	}
 
+	/*MÉTODO EDITAR*/
+	
+	/*nova anotacao do spring @GetMapping e @PostMapping*/
+	
+	@GetMapping("/editarPessoa/{idPessoa}")
+	public ModelAndView editar(@PathVariable("idPessoa") long idPessoa) {
+
+		Optional<Pessoa> p = pessoaRepo.findById(idPessoa);
+		
+		ModelAndView mv = new ModelAndView("cadastro/cadastropessoa");
+		mv.addObject("pessoaObj",p.get());
+		
+		return mv;
+	}
 }
+
+
+
+
+
+
+
+
+
