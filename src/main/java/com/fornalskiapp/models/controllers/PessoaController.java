@@ -13,7 +13,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.fornalskiapp.models.Pessoa;
+import com.fornalskiapp.models.Telefones;
 import com.fornalskiapp.repositories.PessoaRepository;
+import com.fornalskiapp.repositories.TelefonesRepository;
 
 @Controller
 public class PessoaController {
@@ -21,6 +23,10 @@ public class PessoaController {
 	/* INJEÇÃO DE DEPENDENCIAS APARTIR DAQUI */
 	@Autowired
 	private PessoaRepository pessoaRepo;
+	
+	@Autowired
+	private TelefonesRepository telRepo;
+	
 
 	@RequestMapping(value = "/cadastropessoa", method = RequestMethod.GET)
 	public ModelAndView inicio() {
@@ -115,6 +121,19 @@ public class PessoaController {
 		mv.addObject("pessoaObj",p.get());
 		
 		return mv;
+	}
+	
+	/*METODO PARA INSERIR FONES NO ID SELECIONADO PARA PAGINA TELEFONES*/
+	@PostMapping("**/addfonePessoa/{pessoaId}")
+	public ModelAndView adicionaFonePessoa(Telefones telefone, @PathVariable("pessoaId") Long pessoaId) {
+		
+		Pessoa pessoa = pessoaRepo.findById(pessoaId).get();
+		telefone.setPessoa(pessoa);
+		telRepo.save(telefone);
+		ModelAndView mv = new ModelAndView("cadastro/telefones");
+		mv.addObject("pessoaObj", pessoa);
+		return mv;
+		
 	}
 	
 }

@@ -30,6 +30,24 @@
 	</div>
 
 </div>
+<h4>Telefones</h4>
+<div class="row">
+	<form th:action="@{/addfonePessoa/{/pessoaId}(pessoaId = ${pessoaObj.id})}" method="post" class="col s12">
+		<div class="row">
+			<div class="input-field col s6">
+				<label class="active" for="numero"> Número: </label>
+				<input id="numero" name="numero" class="validate">
+			</div>
+			
+			<div class="input-field col s6">
+				<label class="active" for="tipo"> Tipo: </label>
+				<input id="tipo" name="tipo" class="validate">
+			</div>
+				<input class="btn waves-effect waves-light" type="submit" value="Adicionar">
+			
+		</div>
+	</form>
+</div>
 
 
 
