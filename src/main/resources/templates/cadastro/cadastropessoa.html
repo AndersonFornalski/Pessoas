@@ -14,10 +14,15 @@
 	media="screen,projection" />
 
 
-<title>Insert title here</title>
+<title>Spring</title>
 </head>
 <body>
-	<form action="salvarpessoa" method="post" th:object = ${pessoaObj}>
+
+	<h1>Spring Boot + Thymeleaf + Materialize</h1>
+	<h4>Cadastro De Pessoas</h4>
+
+  <div class="row">
+	<form action="salvarpessoa" method="post" id="formPessoa" th:object = ${pessoaObj} class="col s12">
 		<label>Id</label> 
 		<input name="id" th:field ="*{id}" readonly="readonly"> 
 		<label>Nome</label> 
@@ -29,7 +34,10 @@
 		
 		<br /> <br /> <br /> 
 		<input class="btn waves-effect waves-light" type="submit" value="Salvar">
+		<button class="btn waves-effect waves-light" onclick="document.getElementById('formPessoa').reset();" >Novo</button>
 	</form>
+</div>
+
 
 	<br />
 	<br />
@@ -46,10 +54,10 @@
 	<table>
 
 		<tr th:each="dados : ${pList} ">
-			<td th:text="${dados.id}">Id</td>
-			<td th:text="${dados.nome}">Nome</td>
-			<td th:text="${dados.sobrenome}">Sobrenome</td>
-			<td th:text="${dados.idade}">Idade</td>
+			<td th:text="${dados.id}"></td>
+			<td><a th:href="@{/telefones/{/idPessoa}(idPessoa = ${dados.id})}"><span th:text="${dados.nome}"></span></a> </td>
+			<td th:text="${dados.sobrenome}"></td>
+			<td th:text="${dados.idade}"></td>
 			<td><a th:href="@{/editarPessoa/{/idPessoa}(idPessoa = ${dados.id})}" > Editar </a></td>
 			<td><a th:href="@{/removerPessoa/{/idPessoa}(idPessoa = ${dados.id})}" > Excluir </a></td>
 		</tr>

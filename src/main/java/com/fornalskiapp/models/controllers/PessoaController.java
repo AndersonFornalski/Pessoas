@@ -26,7 +26,10 @@ public class PessoaController {
 	public ModelAndView inicio() {
 		
 		ModelAndView mv = new ModelAndView("cadastro/cadastropessoa");
+		Iterable<Pessoa> pList = pessoaRepo.findAll();
+		mv.addObject("pList", pList);
 		mv.addObject("pessoaObj",new Pessoa());
+		
 		
 		return mv;
 	}
@@ -99,6 +102,19 @@ public class PessoaController {
 		
 		return mv;
 		
+	}
+	
+	/*METODO PARA INTERCEPTAR O LINK(telefones) da lista Pessoas da pagina cadastroPessoas*/
+	
+	@GetMapping("/telefones/{idPessoa}")
+	public ModelAndView telefones (@PathVariable("idPessoa") long idPessoa) {
+
+		Optional<Pessoa> p = pessoaRepo.findById(idPessoa);
+		
+	 	ModelAndView mv = new ModelAndView("cadastro/telefones");/*criado para retornar em outra TELA e não mais na cadastroPessoa*/
+		mv.addObject("pessoaObj",p.get());
+		
+		return mv;
 	}
 	
 }
