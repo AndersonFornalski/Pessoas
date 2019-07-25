@@ -29,8 +29,7 @@ public class Pessoa implements Serializable{
 	private String sobrenome;
 	
 	
-	@NotNull(message = "Idade não pode ser nulo")
-	@NotEmpty(message = "Idade não pode ser vazio")
+	
 	private int idade;
 	
 	@OneToMany(mappedBy = "pessoa")

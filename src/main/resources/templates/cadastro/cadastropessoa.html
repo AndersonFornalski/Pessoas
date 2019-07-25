@@ -20,6 +20,14 @@
 
 	<h1>Spring Boot + Thymeleaf + Materialize</h1>
 	<h4>Cadastro De Pessoas</h4>
+<br/>
+<br/>
+	<div th:each ="m : ${msg}">
+		<span th:text="${m}"></span>
+	</div>
+<br/>
+<br/>
+
 
   <div class="row">
 	<form action="salvarpessoa" method="post" id="formPessoa" th:object = ${pessoaObj} class="col s12">

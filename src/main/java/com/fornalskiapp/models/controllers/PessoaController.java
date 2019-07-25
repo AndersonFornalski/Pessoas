@@ -1,9 +1,15 @@
 package com.fornalskiapp.models.controllers;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
+
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -43,7 +49,23 @@ public class PessoaController {
 	/* METODO SALVAR NO BANCO */
 
 	@RequestMapping(value = "**/salvarpessoa", method = RequestMethod.POST)
-	public ModelAndView salvar(Pessoa p) {
+	public ModelAndView salvar(@Valid Pessoa p, BindingResult bindingResult) {  /*@Valid -para validar e BindingResult-retorna as mensagens*/
+		
+		if(bindingResult.hasErrors()) {
+			ModelAndView mv = new ModelAndView("cadastro/cadastropessoa");
+			Iterable<Pessoa> pList = pessoaRepo.findAll();
+			mv.addObject("pList", pList);
+			mv.addObject("pessoaObj", p);
+			
+			List<String> msg = new ArrayList<String>();
+			for( ObjectError objectError : bindingResult.getAllErrors() ) {
+				msg.add(objectError.getDefaultMessage());//vem das anotações @NotEmpty e @NotNull
+			}
+			
+			mv.addObject("msg", msg);
+			return mv;
+		}
+		
 		pessoaRepo.save(p);
 
 		/*
