@@ -119,6 +119,7 @@ public class PessoaController {
 		
 	 	ModelAndView mv = new ModelAndView("cadastro/telefones");/*criado para retornar em outra TELA e não mais na cadastroPessoa*/
 		mv.addObject("pessoaObj",p.get());
+		mv.addObject("fonesIndividuas", telRepo.getFones(idPessoa));
 		
 		return mv;
 	}
@@ -129,9 +130,12 @@ public class PessoaController {
 		
 		Pessoa pessoa = pessoaRepo.findById(pessoaId).get();
 		telefone.setPessoa(pessoa);
+		
 		telRepo.save(telefone);
+		
 		ModelAndView mv = new ModelAndView("cadastro/telefones");
 		mv.addObject("pessoaObj", pessoa);
+		mv.addObject("fonesIndividuas", telRepo.getFones(pessoaId));
 		return mv;
 		
 	}
